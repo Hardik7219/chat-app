@@ -1,6 +1,7 @@
 import React from 'react'
 import { Search } from 'lucide-react'
 import User from '@/componets/User'
+import Link from 'next/link'
 function page() {
   return (
     <>
@@ -14,7 +15,9 @@ function page() {
           </form>
         </div>
         <div className='bg-amber-800 h-screen'>
-          <User></User>
+          <Link href='/pages/chatPage'>
+            <User></User>
+          </Link>
         </div>
       </div> 
     </>

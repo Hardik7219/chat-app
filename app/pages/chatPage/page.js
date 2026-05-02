@@ -11,7 +11,6 @@ function page() {
             </div>
             <div>
                 <div>
-
                 <Chat></Chat>
                 </div>
             </div>
