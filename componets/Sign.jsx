@@ -1,0 +1,27 @@
+import React from 'react'
+import '@/style/login.css'
+
+function Sign() {
+  return (
+    <>
+      <div className='login-card'>
+        <h1 className='login-title'>Enter the detail</h1>
+        <form className='form-body'>
+          <div className='input-base'>
+          </div>
+          <div className='input-base'>
+            <h1 className='input-lable'>Enter UserName</h1>
+            <input className='t-input' type="text"></input>
+          </div>
+          <div className='input-base'>
+            <h1 className='input-lable'>Enter UserName</h1>
+            <input className='t-input' type="text"></input>
+          </div>
+          <button type="submit" className='form-btn'>Submit</button>
+        </form>
+      </div>
+    </>
+  )
+}
+
+export default Sign

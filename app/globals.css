@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  --background: #003556;
+  --foreground: #012040;
+  --text-color: #0f82e700;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/*home page*/
+.card {
+  width: 300px;
+  height: 400px;
+  margin: 0 auto;
+  background-color: #24233b;
+  border-radius: 8px;
+  z-index: 1;
+  box-shadow: 0px 10px 10px rgb(73, 70, 92);
+  transition: 0.5s;
+}
+
+
+.top {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.circle {
+  padding: 0 4px;
+}
+
+.circle2 {
+  display: inline-block;
+  align-items: center;
+  width: 10px;
+  height: 10px;
+  padding: 1px;
+  border-radius: 5px;
+}
+
+.red {
+  background-color: #ff605c;
+}
+
+.yellow {
+  background-color: #ffbd44;
+}
+
+.green {
+  background-color: #00ca4e;
+}
+
+.header {
+  margin: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+#title2 {
+  color: white;
+  padding-left: 50px;
+  font-size: 15px;
+}
+
+.code-container {
+  text-align: center;
+}
+#code {
+  width: 270px;
+  height: 350px;
+  resize: none;
+  background-color: rgb(73, 70, 92);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 10px;
+}
+#code:focus {
+  outline: none !important;
+}
+
+/*dashboard*/
+.s-input{
+  color: white;
+  padding: 10px 25px;
+  background: transparent;
+  outline: none;
+}
