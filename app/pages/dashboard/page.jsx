@@ -48,16 +48,14 @@ function Dashboard() {
             </div>
           </form>
           <div>
-            {msg && (
-              {msg}
-            )}
-              <div className='bg-amber-50 w-10 h-10'>
-                <Link href="/pages/profile">s</Link>
+            {msg && <p>{msg}</p>} 
+              <div className='w-20 h-10 bg-indigo-500 flex justify-center items-center rounded-lg'>
+                <Link href="/pages/profile">Acoount</Link>
               </div>
           </div>
         </div>
         {data && (
-          <div className='bg-amber-800 h-screen'>
+          <div className='h-screen'>
           <Link href={`/pages/chatPage?id=${data.id}&name=${data.name}`}>
            <User name={data.name}></User>
           </Link>

@@ -3,10 +3,9 @@ import dbConnect from "@/lib/dbConnection";
 import { NextResponse } from "next/server";
 import msgModel from "@/lib/msg.model";
 
-export async function POST(req)
-{
+export async function POST(req) {
     try {
-        const {_id,id,msg} = await req.json();
+        const { _id, id, msg } = await req.json();
         if (!msg?.trim()) {
 
             return NextResponse.json({
@@ -17,9 +16,9 @@ export async function POST(req)
         const user = await userModel.findById(_id);
         const resUser = await userModel.findById(id);
         const newMsg = await msgModel.create({
-            senderId:_id,
-            receiId:id,
-            message:msg,
+            senderId: _id,
+            receiId: id,
+            message: msg,
         })
         user.messages.push(
             newMsg._id,
@@ -33,13 +32,14 @@ export async function POST(req)
 
         await user.save();
 
-        
+
         resUser.messages.push(
             newMsg._id
         )
         await resUser.save()
-        return NextResponse.json({data:newMsg})
+        return NextResponse.json({ data: newMsg })
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        return NextResponse.json({ message: "Server error" }, { status: 500 });
     }
 }   

@@ -22,7 +22,7 @@ export async function  POST(req) {
         )
         if(!isMatch) return NextResponse.json({message:"email or password is wrong"})
         
-        const token = jwt.sign({email:user.email,userName : user.username,id:user._id},process.env.JWT_SECRET);
+        const token = jwt.sign({email:user.email,userName : user.username,id:user._id},process.env.JWT_SECRET,{ expiresIn: "7d" } );
         const response = NextResponse.json({message:"login succefull"})
 
         response.cookies.set(

@@ -49,7 +49,7 @@ useEffect(() => {
 
     return (
         <>
-            <div className='w-full h-19 bg-amber-700'>
+            <div className='w-full h-10 p-2 bg-indigo-950'>
                 <Link href="/pages/dashboard">dashboard</Link>
             </div>
             <div className=''>
@@ -67,7 +67,7 @@ useEffect(() => {
             <div className='z-50 w-full sticky bottom-0'>
                 <form className='p-1 w-full' onSubmit={sendChat}>
                     <div className='border-2 rounded-lg border-[#8707ff] justify-between flex'>
-                        <input className='s-input w-[90%] rounded-0' onChange={(e) => setChat(e.target.value)} type="text" placeholder='Search the user...'></input>
+                        <input className='s-input w-[90%] rounded-0'  value={chat || ""} onChange={(e) => setChat(e.target.value)} type="text" placeholder='Search the user...'></input>
                         <button type="submit" className='s-btn w-[10%] flex justify-center items-center'><Send></Send></button>
                     </div>
                 </form>
