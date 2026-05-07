@@ -1,7 +1,7 @@
 import Chat from '@/componets/Chat'
 import React from 'react'
 
-function page() {
+function Chatpage() {
   return (
     <>
         <div>
@@ -19,4 +19,4 @@ function page() {
   )
 }
 
-export default page
+export default Chatpage
