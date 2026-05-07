@@ -27,10 +27,9 @@ function Login() {
 
       const data = await res.json()
       setMsg(data.message)
-      if(data.token)
-      {
-        router.push('/pages/dashboard')
-      }
+if (data.message === "login succefull") { 
+    router.push('/pages/dashboard')
+}
     } catch (error) {
       setMsg('Something went wrong')
     } finally {

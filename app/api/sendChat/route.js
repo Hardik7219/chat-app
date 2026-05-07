@@ -34,7 +34,6 @@ export async function POST(req)
         await user.save();
 
         
-        await user.save();
         resUser.messages.push(
             newMsg._id
         )

@@ -1,142 +1,72 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import {
-  useUser
-} from "@/context/UserContext";
-import socket
-  from "@/lib/socket";
+import socket from "@/lib/socket";
+import { useUser } from "@/context/UserContext";
+import { useEffect, useState } from "react";
 
 function Chat({ id }) {
-  const [messages, setMessages] = useState([])
+    const [messages, setMessages] = useState([]);
+    const { user } = useUser();
 
-  const {
-    user,
-    loading
-  } = useUser();
+    // Join your personal room once
+    useEffect(() => {
+        if (!user?.id) return;
+        socket.emit("join", user.id);
+    }, [user?.id]);
 
-  useEffect(() => {
-    const loadMsg = async () => {
-      const res = await fetch(
-        "/api/message",
-        {
-          method: "POST",
+    // Load messages
+    useEffect(() => {
+        if (!user?.id) return;
+        const loadMsg = async () => {
+            const res = await fetch("/api/message", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ myId: user.id, otherId: id }),
+            });
+            const data = await res.json();
+            setMessages(data.messages);
+        };
+        loadMsg();
+    }, [user?.id, id]);
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+    // Listen for messages — fixed listener
+    useEffect(() => {
+        if (!user?.id) return;
 
-          body: JSON.stringify({
-            myId: user?.id,
-            otherId: id,
-          }),
-        }
-      );
-
-      const data = await res.json();
-
-      setMessages(data.messages);
-    }
-    if (user?.id)
-      loadMsg();
-  }, [user?.id,id])
-  useEffect(() => {
-
-    const handleMessage =
-        (data) => {
-
-        if (
-
-            (
-                data.senderId.toString() === user?.id &&
-                data.receiId.toString() === id
-            )
-
-            ||
-
-            (
-                data.senderId.toString() === id &&
-                data.receiId.toString() === user?.id
-            )
-
-        ) {
-
-            setMessages(
-                (prev) => {
-
-                    // avoid duplicate
-                    const exists =
-                        prev.some(
-                            (msg) =>
-                                msg._id === data._id
-                        );
-
-                    if (exists)
-                        return prev;
-
-                    return [
-                        ...prev,
-                        data
-                    ];
-                }
+        const handleMessage = (data) => {
+            setMessages((prev) =>
+                prev.some((msg) => msg._id === data._id)
+                    ? prev
+                    : [...prev, data]
             );
-        }
-    };
+        };
 
-    // remove old listener first
-    socket.off(
-        "receive-message",
-        handleMessage
+        socket.on("receive-message", handleMessage);
+        return () => socket.off("receive-message", handleMessage); // ✅ clean
+    }, [user?.id, id]);
+
+    return (
+        <div className="bg-rose-600 text-white w-auto h-screen overflow-y-auto">
+            {messages.map((msg) => (
+                <div
+                    key={msg._id}
+                    className={`flex mb-2 ${
+                        msg.senderId.toString() === user?.id
+                            ? "justify-end"
+                            : "justify-start"
+                    }`}
+                >
+                    <div
+                        className={`p-3 rounded-2xl max-w-[250px] ${
+                            msg.senderId.toString() === user?.id
+                                ? "bg-green-500 text-white"
+                                : "bg-gray-200 text-black"
+                        }`}
+                    >
+                        {msg.message}
+                    </div>
+                </div>
+            ))}
+        </div>
     );
-
-    // add listener
-    socket.on(
-        "receive-message",
-        handleMessage
-    );
-
-    // cleanup
-    return () => {
-
-        socket.off(
-            "receive-message",
-            handleMessage
-        );
-    };
-
-}, [user?.id, id]);
-  return (
-    <>
-      <div className='bg-rose-600 text-white w-auto h-screen'>
-        {
-          messages.map((msg) => (
-
-            <div
-              key={msg._id}
-
-              className={`flex mb-2 ${msg.senderId.toString() === user?.id
-                  ? "justify-end"
-                  : "justify-start"
-                }`}
-            >
-
-              <div
-                className={`p-3 rounded-2xl max-w-[250px] ${msg.senderId.toString() === user?.id
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 text-black"
-                  }`}
-              >
-
-                {msg.message}
-
-              </div>
-
-            </div>
-          ))
-        }
-      </div>
-    </>
-  )
 }
 
-export default Chat
+export default Chat;
