@@ -10,7 +10,7 @@ import {
 } from "@/context/UserContext";
 import socket
     from "@/lib/socket";
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 
 function Chatpage() {
     const searchParams = useSearchParams();
@@ -42,6 +42,10 @@ function Chatpage() {
         setChat("");
     }
 
+useEffect(() => {
+    if (!user?.id) return;
+    socket.emit("join", user.id);
+}, [user?.id]);
 
     return (
         <>
