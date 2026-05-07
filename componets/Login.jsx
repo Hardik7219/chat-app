@@ -10,16 +10,11 @@ function Login() {
   const [email, setEmail] = useState()
   const [pas, setPas] = useState();
   const [msg, setMsg] = useState();
-  const [datas,setDate]= useState();
   const router = useRouter()
   const login = async (e) => {
     e.preventDefault()
     if (loading) return
     setLoading(true)
-
-    if (loading) return
-    setLoading(true)
-
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
@@ -38,7 +33,6 @@ function Login() {
       }
     } catch (error) {
       setMsg('Something went wrong')
-      console.log(error)
     } finally {
       setLoading(false)
     }

@@ -18,7 +18,7 @@ function Profile() {
   return (
     <>
       {loading && (
-      <div className='z-50 bg-black h-screen w-full'>
+      <div className='flex h-screen bg-black w-full justify-center items-center z-50 absolute backdrop-blur-sm'>
         <Loading></Loading>
       </div>
     )}

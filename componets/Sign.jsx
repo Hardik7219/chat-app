@@ -16,8 +16,6 @@ function Sign() {
       if(loading) return 
       setLoading(true)
 
-    if (loading) return
-    setLoading(true)
 
     try {
       const res = await fetch('/api/signup', {
