@@ -22,22 +22,6 @@ A real-time chat application built with Next.js, MongoDB, JWT authentication, an
 - Message persistence in MongoDB
 - User profile page and logout endpoint
 
-## Project Structure
-
-- `app/` - Next.js app routes and API routes
-  - `app/page.js` - landing page
-  - `app/pages/login/page.js` - login page
-  - `app/pages/signup/page.js` - signup page
-  - `app/pages/dashboard/page.jsx` - dashboard/search page
-  - `app/pages/chatPage/page.jsx` - chat UI
-  - `app/pages/profile/page.jsx` - profile/logout page
-  - `app/api/*/route.js` - backend API handlers
-- `componets/` - UI components (`Login`, `Sign`, `Chat`, etc.)
-- `lib/` - DB connection, Mongoose models, Socket.IO client singleton
-- `context/UserContext.js` - user session state in client
-- `middleware.js` - route redirect/auth checks
-- `server.js` - custom Next.js + Socket.IO HTTP server
-
 ## Environment Variables
 
 Create a `.env.local` file in the project root:
