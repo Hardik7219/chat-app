@@ -45,7 +45,7 @@ function Chat({ id }) {
     }, [user?.id, id]);
 
     return (
-        <div className="bg-rose-600 text-white w-auto h-screen overflow-y-auto">
+        <div className="text-white w-auto h-screen overflow-y-auto">
             {messages.map((msg) => (
                 <div
                     key={msg._id}

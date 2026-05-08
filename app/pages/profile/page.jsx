@@ -14,7 +14,9 @@ function Profile() {
           user,
           loading
       } = useUser();
-
+    const logout=async ()=>{
+      await fetch('/api/logout')
+    }
   return (
     <>
       {loading && (
@@ -22,9 +24,14 @@ function Profile() {
         <Loading></Loading>
       </div>
     )}
-      <div className='h-screen w-full'>
-        <p>{user?.userName}</p>
+      <div className='h-screen flex justify-between w-full p-2'>
+        <div>
+        <p className='text-2xl font-bold'>{user?.userName}</p>
         <p>{user?.email}</p>
+        </div>
+        <div>
+          <button onClick={logout} className='bg-red-600 rounded-lg text-2xl font-extrabold p-1 hover:cursor-pointer'>Logout</button>
+        </div>
       </div> 
     </>
   )

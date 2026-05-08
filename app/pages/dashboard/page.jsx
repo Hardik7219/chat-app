@@ -31,6 +31,7 @@ function Dashboard() {
       })
       const data= await res.json();
       setData(data.userData);
+      if(data.message) alert(data.message)
     }
   return (
     <>
@@ -44,7 +45,7 @@ function Dashboard() {
           <form className='p-1 w-full' onSubmit={searchUser}>
             <div className='border-2 rounded-lg border-[#8707ff] justify-between flex'>
               <input className='s-input w-[90%] rounded-0' onChange={(e)=>setUserS(e.target.value)} type="text" placeholder='Search the user...'></input>
-              <button type="submit" className='s-btn w-[10%] flex justify-center items-center'><Search></Search></button>
+              <button type="submit" className='s-btn  flex justify-center  hover:cursor-pointer items-center'><Search></Search></button>
             </div>
           </form>
           <div>

@@ -22,7 +22,7 @@ export function middleware(req) {
 
     // not logged in
     if (!token &&
-        path === "/pages/dashboard"
+        path === "/pages/dashboard" || path==="/pages/profile"
     ) {
 
         return NextResponse.redirect(

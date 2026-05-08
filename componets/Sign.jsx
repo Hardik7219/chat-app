@@ -15,7 +15,11 @@ function Sign() {
       e.preventDefault()
       if(loading) return 
       setLoading(true)
-
+      if(pas.length>8)
+      {
+        alert('password must be longer then 8 letter')
+        return ;
+      }
 
     try {
       const res = await fetch('/api/signup', {
