@@ -9,7 +9,7 @@ A real-time chat application built with Next.js, MongoDB, JWT authentication, an
 - MongoDB + Mongoose
 - Socket.IO
 - JWT  + bcrypt password hashing
-- Tailwind CSS
+- Tailwind CSS1
 
 ## Current Features
 

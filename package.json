@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+  "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev --port 3000",
+  "socket": "node server.js",
+  "start:all": "concurrently \"npm run dev\" \"npm run socket\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4"
