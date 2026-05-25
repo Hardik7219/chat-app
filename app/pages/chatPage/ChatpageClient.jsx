@@ -1,43 +1,22 @@
 'use client'
 import Chat from '@/componets/Chat'
-import { Send, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams } from "next/navigation"
 import { useUser } from "@/context/UserContext"
 import socket from "@/lib/socket"
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Loading from '@/componets/Loading'
 
 function Chatpage() {
   const searchParams = useSearchParams()
-  const [message, setMessage] = useState('')
   const id = searchParams.get('id')
   const name = searchParams.get('name')
   const { user, loading } = useUser()
 
-  const sendChat = async (e) => {
-    e.preventDefault()
-    if (!message.trim() || !user?.id || !id) return
-
-    const res = await fetch('/api/sendChat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        _id: user.id,
-        id: id,
-        msg: message,
-      }),
-    })
-    const data = await res.json()
-    if (data.data) {
-      socket.emit("send-message", data.data)
-    }
-    setMessage("")
-  }
-
   useEffect(() => {
     if (!user?.id) return
-    socket.emit("join", user.id)
+    socket.emit("join", user.id.toString())
   }, [user?.id])
 
   if (!id || !name) {
@@ -72,23 +51,6 @@ function Chatpage() {
       </header>
 
       <Chat id={id} />
-
-      <div className="chat-input-bar">
-        <form onSubmit={sendChat}>
-          <div className="search-bar">
-            <input
-              className="search-input"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              type="text"
-              placeholder="Type a message..."
-            />
-            <button type="submit" className="search-btn" aria-label="Send">
-              <Send size={18} />
-            </button>
-          </div>
-        </form>
-      </div>
     </div>
   )
 }

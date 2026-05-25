@@ -38,13 +38,11 @@ npm install
 npm run dev
 ```
 
-The app runs on:
-
-- [http://localhost:3000](http://localhost:3000)
+The app runs on [http://localhost:3000](http://localhost:3000). **Socket.IO runs on the same port** via `server.js` — do not use `next dev` alone or real-time chat will not work.
 
 ## NPM Scripts
 
-- `npm run dev` - starts the custom server (`node server.js`) with Next.js + Socket.IO
+- `npm run dev` - starts Next.js + Socket.IO together (`node server.js`)
 - `npm run build` - production build
 - `npm start` - start production server
 - `npm run lint` - run ESLint
@@ -69,7 +67,7 @@ The app runs on:
 
 ## Real-Time Flow
 
-- Client connects to Socket.IO server at `http://localhost:3000`.
+- Client connects to Socket.IO on the same origin as the app (default `http://localhost:3000`).
 - Each user joins a personal room using their user ID via `join`.
 - When a message is sent, server emits `receive-message` to both sender and receiver rooms.
 - Chat UI listens for `receive-message` and appends unseen messages in real time.

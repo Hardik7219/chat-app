@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev --port 3000",
+  "dev": "NODE_OPTIONS='--max-old-space-size=4096' node server.js",
   "socket": "node server.js",
-  "start:all": "concurrently \"npm run dev\" \"npm run socket\"",
+  "start:all": "npm run dev",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "lint": "eslint"
   },
   "dependencies": {

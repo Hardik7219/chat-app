@@ -6,6 +6,7 @@ import {
     useEffect,
     useState
 } from "react";
+import { getSocket } from "@/lib/socket";
 
 const UserContext =
     createContext();
@@ -35,8 +36,8 @@ export function UserProvider({
                     await res.json();
 
                 if (data.loggedIn) {
-
                     setUser(data.user);
+                    getSocket().emit("join", data.user.id.toString());
                 }
 
             } catch (error) {
