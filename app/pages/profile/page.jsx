@@ -1,38 +1,51 @@
 'use client'
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-import { Search } from 'lucide-react'
-import User from '@/componets/User'
-import Link from 'next/link'
-import {
-    useUser
-} from "@/context/UserContext";
+import { useUser } from "@/context/UserContext"
 import Loading from '@/componets/Loading'
-function Profile() {
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { ArrowLeft } from 'lucide-react'
 
-    const {
-          user,
-          loading
-      } = useUser();
-    const logout=async ()=>{
-      await fetch('/api/logout')
-    }
+function Profile() {
+  const { user, loading, setUser } = useUser()
+  const router = useRouter()
+
+  const logout = async () => {
+    await fetch('/api/logout')
+    setUser(null)
+    router.push('/')
+  }
+
+  const initial = (user?.userName || '?').charAt(0).toUpperCase()
+
   return (
     <>
       {loading && (
-      <div className='flex h-screen bg-black w-full justify-center items-center z-50 absolute backdrop-blur-sm'>
-        <Loading></Loading>
+        <div className="loading-overlay">
+          <Loading />
+        </div>
+      )}
+      <div className="app-shell">
+        <header className="app-header">
+          <Link href="/pages/dashboard" className="chat-back">
+            <ArrowLeft size={18} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />
+            Back
+          </Link>
+          <span className="app-logo">Profile</span>
+          <span style={{ width: 48 }} />
+        </header>
+
+        <main className="app-content">
+          <div className="profile-card">
+            <div className="profile-avatar-lg">{initial}</div>
+            <p className="profile-name">{user?.userName}</p>
+            <p className="profile-email">{user?.email}</p>
+          </div>
+
+          <button onClick={logout} className="btn btn-danger" style={{ width: '100%' }}>
+            Log out
+          </button>
+        </main>
       </div>
-    )}
-      <div className='h-screen flex justify-between w-full p-2'>
-        <div>
-        <p className='text-2xl font-bold'>{user?.userName}</p>
-        <p>{user?.email}</p>
-        </div>
-        <div>
-          <button onClick={logout} className='bg-red-600 rounded-lg text-2xl font-extrabold p-1 hover:cursor-pointer'>Logout</button>
-        </div>
-      </div> 
     </>
   )
 }

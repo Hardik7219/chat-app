@@ -2,6 +2,7 @@ import userModel from "@/lib/user.model";
 import dbConnect from "@/lib/dbConnection";
 import { NextResponse } from "next/server";
 import msgModel from "@/lib/msg.model";
+import mongoose from "mongoose";
 
 export async function POST(req) {
     try {
@@ -23,11 +24,10 @@ export async function POST(req) {
         user.messages.push(
             newMsg._id,
         );
-        if (
-            !user.contact.includes(id)
-        ) {
-
-            user.contact.push(id);
+        const peerId = new mongoose.Types.ObjectId(id);
+        const alreadyContact = user.contact.some((c) => c.toString() === peerId.toString());
+        if (!alreadyContact) {
+            user.contact.push(peerId);
         }
 
         await user.save();

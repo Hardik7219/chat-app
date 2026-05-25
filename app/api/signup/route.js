@@ -10,8 +10,16 @@ export async function POST(req)
         const {username,email,password} =await req.json();
         if(!username || !email || !password) return NextResponse.json({message:"field are empty"})
         await dbConnect();
-        const user = await userModel.findOne({email})
-        if(user) return NextResponse.json({message:"user aleardy exist!"})
+        const existing = await userModel.findOne({
+            $or: [{ email }, { username }],
+        });
+        if (existing) {
+            const message =
+                existing.email === email
+                    ? "Email already registered"
+                    : "Username already taken";
+            return NextResponse.json({ message });
+        }
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const newUser = await userModel.create ({

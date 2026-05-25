@@ -15,10 +15,10 @@ function Sign() {
       e.preventDefault()
       if(loading) return 
       setLoading(true)
-      if(pas.length>8)
-      {
-        alert('password must be longer then 8 letter')
-        return ;
+      if (!pas || pas.length < 8) {
+        setMsg('Password must be at least 8 characters')
+        setLoading(false)
+        return
       }
 
     try {
@@ -56,10 +56,10 @@ function Sign() {
           </div>
           <div className='input-base'>
             <h1 className='input-lable'>Enter Password</h1>
-            <input onChange={(e)=>setPas(e.target.value)} className='t-input' type="text"></input>
+            <input onChange={(e)=>setPas(e.target.value)} className='t-input' type="password"></input>
           </div>
-          <button type="submit" className='form-btn'>Submit</button>
-          {msg && <p>{msg}</p>}
+          <button type="submit" className='form-btn'>Create account</button>
+          {msg && <p className={`form-msg ${msg.includes('created') ? '' : 'form-msg-error'}`}>{msg}</p>}
         </form>
       </div>      
       {loading && (

@@ -20,17 +20,14 @@ export function middleware(req) {
         );
     }
 
-    // not logged in
-    if (!token &&
-        path === "/pages/dashboard" || path==="/pages/profile"
-    ) {
+    const protectedPaths = [
+        "/pages/dashboard",
+        "/pages/profile",
+        "/pages/chatPage",
+    ];
 
-        return NextResponse.redirect(
-            new URL(
-                "/",
-                req.url
-            )
-        );
+    if (!token && protectedPaths.some((p) => path.startsWith(p))) {
+        return NextResponse.redirect(new URL("/", req.url));
     }
 
     return NextResponse.next();
@@ -39,6 +36,8 @@ export function middleware(req) {
 export const config = {
     matcher: [
         "/",
-        "/pages/dashboard"
+        "/pages/dashboard",
+        "/pages/profile",
+        "/pages/chatPage",
     ],
 };

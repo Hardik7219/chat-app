@@ -47,10 +47,10 @@ if (data.message === "login succefull") {
           </div>
           <div className='input-base'>
             <h1 className='input-lable'>Enter Password</h1>
-            <input onChange={(e) => setPas(e.target.value)} className='t-input' type="text"></input>
+            <input onChange={(e) => setPas(e.target.value)} className='t-input' type="password"></input>
           </div>
-          <button type="submit" className='form-btn'>Submit</button>
-          {msg && <p>{msg}</p>}
+          <button type="submit" className='form-btn'>Log in</button>
+          {msg && <p className={`form-msg ${msg.includes('succefull') ? '' : 'form-msg-error'}`}>{msg}</p>}
         </form>
       </div>
             {loading && (
